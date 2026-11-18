@@ -1,0 +1,148 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+
+/* Mantém o formulário de edição acima da ficha do colaborador que o abriu. */
+.fixed.z-50:has(> form) {
+  z-index: 70;
+}
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--agenda-background);
+  --color-foreground: var(--agenda-foreground);
+  --color-card: var(--agenda-card);
+  --color-card-foreground: var(--agenda-card-foreground);
+  --color-primary: var(--agenda-primary);
+  --color-primary-foreground: var(--agenda-primary-foreground);
+  --color-secondary: var(--agenda-secondary);
+  --color-secondary-foreground: var(--agenda-secondary-foreground);
+  --color-muted: var(--agenda-muted);
+  --color-muted-foreground: var(--agenda-muted-foreground);
+  --color-destructive: var(--agenda-destructive);
+  --color-destructive-foreground: var(--agenda-destructive-foreground);
+  --color-border: var(--agenda-border);
+  --color-input: var(--agenda-input);
+  --color-ring: var(--agenda-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --agenda-background: oklch(0.18 0.03 260);
+  --agenda-foreground: oklch(0.97 0.01 250);
+  --agenda-card: oklch(0.22 0.035 260);
+  --agenda-card-foreground: oklch(0.97 0.01 250);
+  --agenda-primary: oklch(0.72 0.18 45);
+  --agenda-primary-foreground: oklch(0.15 0.02 260);
+  --agenda-secondary: oklch(0.27 0.04 260);
+  --agenda-secondary-foreground: oklch(0.97 0.01 250);
+  --agenda-muted: oklch(0.25 0.035 260);
+  --agenda-muted-foreground: oklch(0.7 0.02 255);
+  --agenda-destructive: oklch(0.62 0.22 27);
+  --agenda-destructive-foreground: oklch(0.98 0.003 250);
+  --agenda-border: oklch(0.3 0.04 260);
+  --agenda-input: oklch(0.27 0.04 260);
+  --agenda-ring: oklch(0.72 0.18 45);
+}
+
+@layer utilities {
+  @keyframes agenda-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes agenda-pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes agenda-list-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .agenda-fade-in {
+    animation: agenda-fade-in 160ms ease-out both;
+  }
+
+  .agenda-pop-in {
+    animation: agenda-pop-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .agenda-list-in {
+    animation: agenda-list-in 180ms ease-out both;
+  }
+
+  .agenda-pressable {
+    transition:
+      transform 140ms ease,
+      border-color 140ms ease,
+      background-color 140ms ease,
+      box-shadow 140ms ease,
+      opacity 140ms ease;
+  }
+
+  .agenda-pressable:hover {
+    transform: translateY(-1px);
+  }
+
+.agenda-pressable:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .processos-table-scroll {
+    scrollbar-color: rgba(255, 106, 0, 0.72) transparent;
+    scrollbar-width: thin;
+  }
+
+  .processos-table-scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .processos-table-scroll::-webkit-scrollbar-track,
+  .processos-table-scroll::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  .processos-table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 106, 0, 0.72);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+  }
+
+  .processos-table-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 138, 51, 0.9);
+    background-clip: padding-box;
+  }
+}
+
+/* Ações compactas Editar/Excluir usam exatamente 80 x 32 px. */
+button.h-8.w-20 {
+  width: 5rem !important;
+  height: 2rem !important;
+  min-width: 5rem;
+}
+
+@import "tailwindcss/utilities.css" layer(utilities);

@@ -1,0 +1,30 @@
+name: Deploy Atlas
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, Windows, web]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Testar Serviço
+        shell: powershell
+        run: |
+          Get-Service atlas
+
+      - name: Executar Deploy Atlas
+        shell: powershell
+        run: |
+          Set-Location $env:GITHUB_WORKSPACE
+
+          & "C:\DeployScripts\deploy-python-sites.ps1" `
+            -AppName "teste-deploy" `
+            -AppPath "C:\inetpub\wwwroot\Teste-Deploy" `
+            -ServiceName "teste-deploy" `
+            -EntryPoint "main.py"
